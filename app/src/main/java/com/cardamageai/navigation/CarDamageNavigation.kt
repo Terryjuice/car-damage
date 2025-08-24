@@ -7,6 +7,7 @@ import androidx.navigation.compose.composable
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.cardamageai.feature.camera.CameraScreen
 import com.cardamageai.feature.damageanalysis.DamageAnalysisScreen
+import com.cardamageai.feature.damageanalysis.HistoryScreen
 
 @Composable
 fun CarDamageNavigation(navController: NavHostController) {
@@ -18,6 +19,9 @@ fun CarDamageNavigation(navController: NavHostController) {
             CameraScreen(
                 onImageCaptured = { imageUri ->
                     navController.navigate("damage_analysis/$imageUri")
+                },
+                onHistoryClick = {
+                    navController.navigate("history")
                 }
             )
         }
@@ -29,6 +33,12 @@ fun CarDamageNavigation(navController: NavHostController) {
                 onBackPressed = {
                     navController.popBackStack()
                 }
+            )
+        }
+
+        composable("history") {
+            HistoryScreen(
+                onBackPressed = { navController.popBackStack() }
             )
         }
     }

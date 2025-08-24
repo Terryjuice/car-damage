@@ -8,6 +8,7 @@ import androidx.camera.view.LifecycleCameraController
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.History
 import androidx.compose.material.icons.filled.PhotoCamera
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
@@ -30,6 +31,7 @@ import java.util.*
 @Composable
 fun CameraScreen(
     onImageCaptured: (String) -> Unit,
+    onHistoryClick: () -> Unit,
     viewModel: CameraViewModel = hiltViewModel()
 ) {
     val context = LocalContext.current
@@ -47,6 +49,7 @@ fun CameraScreen(
         cameraPermission.status.isGranted -> {
             CameraContent(
                 onImageCaptured = onImageCaptured,
+                onHistoryClick = onHistoryClick,
                 viewModel = viewModel
             )
         }
@@ -61,6 +64,7 @@ fun CameraScreen(
 @Composable
 private fun CameraContent(
     onImageCaptured: (String) -> Unit,
+    onHistoryClick: () -> Unit,
     viewModel: CameraViewModel
 ) {
     val context = LocalContext.current
@@ -84,7 +88,19 @@ private fun CameraContent(
             controller = cameraController,
             modifier = Modifier.fillMaxSize()
         )
-        
+
+        IconButton(
+            onClick = onHistoryClick,
+            modifier = Modifier
+                .align(Alignment.TopEnd)
+                .padding(16.dp)
+        ) {
+            Icon(
+                imageVector = Icons.Default.History,
+                contentDescription = "История"
+            )
+        }
+
         Card(
             modifier = Modifier
                 .align(Alignment.TopCenter)
