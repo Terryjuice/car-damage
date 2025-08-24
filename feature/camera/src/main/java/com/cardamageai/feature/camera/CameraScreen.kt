@@ -1,6 +1,5 @@
 package com.cardamageai.feature.camera
 
-import android.net.Uri
 import androidx.camera.core.ImageCapture
 import androidx.camera.core.ImageCaptureException
 import androidx.camera.view.CameraController
@@ -9,6 +8,7 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.PhotoCamera
+import androidx.compose.material.icons.filled.History
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
@@ -30,6 +30,7 @@ import java.util.*
 @Composable
 fun CameraScreen(
     onImageCaptured: (String) -> Unit,
+    onHistoryClick: () -> Unit,
     viewModel: CameraViewModel = hiltViewModel()
 ) {
     val context = LocalContext.current
@@ -47,6 +48,7 @@ fun CameraScreen(
         cameraPermission.status.isGranted -> {
             CameraContent(
                 onImageCaptured = onImageCaptured,
+                onHistoryClick = onHistoryClick,
                 viewModel = viewModel
             )
         }
@@ -61,6 +63,7 @@ fun CameraScreen(
 @Composable
 private fun CameraContent(
     onImageCaptured: (String) -> Unit,
+    onHistoryClick: () -> Unit,
     viewModel: CameraViewModel
 ) {
     val context = LocalContext.current
@@ -97,6 +100,18 @@ private fun CameraContent(
                 text = "Наведите камеру на повреждение автомобиля",
                 style = MaterialTheme.typography.bodyMedium,
                 modifier = Modifier.padding(16.dp)
+            )
+        }
+
+        IconButton(
+            onClick = onHistoryClick,
+            modifier = Modifier
+                .align(Alignment.TopEnd)
+                .padding(16.dp)
+        ) {
+            Icon(
+                imageVector = Icons.Default.History,
+                contentDescription = "История"
             )
         }
 
