@@ -61,6 +61,7 @@ dependencies {
     implementation project(':core:ui')
     implementation project(':feature:camera')
     implementation project(':feature:damage-analysis')
+    implementation project(':feature:history')
 
     // Core Android
     implementation 'androidx.core:core-ktx:1.12.0'
